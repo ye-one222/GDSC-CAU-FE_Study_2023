@@ -2,4 +2,4 @@
 
 파일 올리실때 
 파일명 `프로젝트 이름_이름`으로 올려주세요!
-ex. 'Nomad_Vanila_JS_SonYuJin'
+ex. 'Nomad_VanilaJS_SonYuJin'
