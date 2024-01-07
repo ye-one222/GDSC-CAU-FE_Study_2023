@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Diary } from '../interface/diary'
 
 const DiaryWriter = () => {
     const [title, setTitle]=useState('');
