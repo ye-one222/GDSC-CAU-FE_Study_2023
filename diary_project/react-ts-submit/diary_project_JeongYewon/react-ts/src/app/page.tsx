@@ -79,6 +79,7 @@ const DiaryWriter = () => {
             <button 
                 type="submit"
                 className={`p-2 rounded-lg w-full ${isValid ? 'bg-emerald-100 text-emerald-600' : 'bg-gray-100 text-gray-400'}`}
+                disabled={!isValid}
             >
                 {isValid ? '일기를 저장해 보아요' : '일기를 더 자세히 적어볼까요?'}
             </button>
