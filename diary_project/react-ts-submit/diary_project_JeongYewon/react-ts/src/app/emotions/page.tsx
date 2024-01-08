@@ -1,5 +1,23 @@
 import { Link } from "react-router-dom";
 
+const EmojiLinkButton = ({ toPath, color, emoji, title, description }) => { //타입 지정 어떻게 하지
+    return (
+        <Link to={toPath}>
+            <button 
+                className="p-4 flex rounded-2xl border border-gray-50 hover:scale-110 hover:shadow-2xl transition-transform ease-in-out duration-400"
+            >
+                <div className={`text-6xl py-5 p-2 rounded-2xl border bg-${color}-50 border-${color}-100`} >
+                    {emoji}
+                </div>
+                <div className="flex flex-col items-start justify-center w-full m-4">
+                    <h1 className="text-2xl">{title}</h1>
+                    <span className="text-ml text-gray-400">{description}</span>
+                </div>
+            </button>
+        </Link>
+    );
+}
+
 export default function EmotionLinkPage() {
     return (
         <div className="flex flex-col items-start justify-center gap-10">
@@ -9,65 +27,45 @@ export default function EmotionLinkPage() {
             </div>
 
             <div className="grid grid-cols-2 grid-rows-1 gap-5 items-start justify-center">
-                <Link to="/emotions/awesome">
-                <button className="p-4 flex rounded-2xl border border-gray-50">
-                    <div className="text-6xl py-5 p-2 rounded-2xl bg-yellow-50 border border-yellow-100">
-                        😎
-                    </div>
-                    <div className="flex flex-col items-start justify-center w-full m-4">
-                        <h1 className="text-2xl">Awesome</h1>
-                        <span className="text-ml text-gray-400">최고의 하루였어요</span>
-                    </div>
-                </button>
-                </Link>
+                <EmojiLinkButton
+                toPath="/emotions/awesome"
+                color="yellow"
+                emoji="😎"
+                title="Awesome"
+                description="최고의 하루였어요"
+                />
 
-                <Link to="/emotions/great">
-                <button className="p-4 flex rounded-2xl border border-gray-50">
-                    <div className="text-6xl py-5 p-2 rounded-2xl bg-blue-50 border border-blue-100">
-                        😃
-                    </div>
-                    <div className="flex flex-col items-start justify-center w-full m-4">
-                        <h1 className="text-2xl">Great</h1>
-                        <span className="text-ml text-gray-400">멋진 하루였어요</span>
-                    </div>
-                </button>
-                </Link>
+                <EmojiLinkButton
+                toPath="/emotions/great"
+                color="blue"
+                emoji="😃"
+                title="Great"
+                description="멋진 하루였어요"
+                />
 
-                <Link to="/emotions/good">
-                <button className="p-4 flex rounded-2xl border border-gray-50">
-                    <div className="text-6xl py-5 p-2 rounded-2xl bg-green-50 border border-green-100">
-                        😙
-                    </div>
-                    <div className="flex flex-col items-start justify-center w-full m-4">
-                        <h1 className="text-2xl">Good</h1>
-                        <span className="text-ml text-gray-400">좋은 하루였어요</span>
-                    </div>
-                </button>
-                </Link>
+                <EmojiLinkButton
+                toPath="/emotions/good"
+                color="green"
+                emoji="😙"
+                title="Good"
+                description="좋은 하루였어요"
+                />
 
-                <Link to="/emotions/soso">
-                <button className="p-4 flex rounded-2xl border border-gray-50">
-                    <div className="text-6xl py-5 p-2 rounded-2xl bg-purple-50 border border-purple-100">
-                        😗
-                    </div>
-                    <div className="flex flex-col items-start justify-center w-full m-4">
-                        <h1 className="text-2xl">Soso</h1>
-                        <span className="text-ml text-gray-400">괜찮은 하루였어요</span>
-                    </div>
-                </button>
-                </Link>
+                <EmojiLinkButton
+                toPath="/emotions/soso"
+                color="purple"
+                emoji="😗"
+                title="Soso"
+                description="괜찮은 하루였어요"
+                />
 
-                <Link to="/emotions/bad">
-                <button className="p-4 flex rounded-2xl border border-gray-50">
-                    <div className="text-6xl py-5 p-2 rounded-2xl bg-red-50 border border-red-100">
-                        🤬
-                    </div>
-                    <div className="flex flex-col items-start justify-center w-full m-4">
-                        <h1 className="text-2xl">Bad</h1>
-                        <span className="text-ml text-gray-400">최악의 하루였어요!</span>
-                    </div>
-                </button>
-                </Link>
+                <EmojiLinkButton
+                toPath="/emotions/bad"
+                color="red"
+                emoji="🤬"
+                title="Bad"
+                description="최악의 하루였어요"
+                />
             </div>
         </div>
     )

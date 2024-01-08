@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const DiaryWriter = () => {
     const [title, setTitle]=useState('');
@@ -46,7 +47,7 @@ const DiaryWriter = () => {
                 <button
                 key={index}
                 type="button"
-                className={`p-1 rounded-lg text-sm ${selectedFeeling === feeling ? 'bg-emerald-100 text-emerald-600' : 'bg-gray-100 text-gray-400'}`}
+                className={`p-1 rounded-lg text-sm ${selectedFeeling === feeling ? 'bg-emerald-100 text-emerald-600 hover:border hover:border-emerald-600' : 'bg-gray-100 text-gray-400 hover:text-gray-600 hover:border hover:border-gray-600'}`} //테두리가 나타날 때 버튼 크기도 변하는데 어떻게 고정하나용..
                 name="feeling"
                 value={feeling}
                 onClick={()=>handleFeelingClick(feeling)}>
@@ -60,7 +61,7 @@ const DiaryWriter = () => {
                 <button 
                 key={index} 
                 type="button" 
-                className={`p-1 rounded-lg text-sm ${selectedWeather === weather ? 'bg-blue-100 text-blue-600' : 'bg-gray-100 text-gray-400'}`}
+                className={`p-1 rounded-lg text-sm ${selectedWeather === weather ? 'bg-blue-100 text-blue-600 hover:border hover:border-blue-600' : 'bg-gray-100 text-gray-400'} hover:text-gray-600 hover:border hover:border-gray-600`}
                 name="weather" 
                 value={weather}
                 onClick={()=>handleWeatherClick(weather)}>
@@ -78,7 +79,7 @@ const DiaryWriter = () => {
         <div>
             <button 
                 type="submit"
-                className={`p-2 rounded-lg w-full ${isValid ? 'bg-emerald-100 text-emerald-600' : 'bg-gray-100 text-gray-400'}`}
+                className={`p-2 rounded-lg w-full ${isValid ? 'bg-emerald-100 text-emerald-600 hover:border hover:border-emerald-600' : 'bg-gray-100 text-gray-400 hover:text-gray-600 hover:border hover:border-gray-600'}`}
                 disabled={!isValid}
             >
                 {isValid ? '일기를 저장해 보아요' : '일기를 더 자세히 적어볼까요?'}
@@ -100,7 +101,9 @@ export default function DiaryHomePage() {
                 <div className="flex flex-col items-center justify-center h-5/6">
                     <p className="text-gray-400">일기를 적어보세요</p>
                 </div>
-                <button type="submit" className="p-2 rounded-lg bg-emerald-100 text-emerald-600 w-full">감정 모아보기</button>
+                <Link to="/emotions">
+                    <button type="submit" className="p-2 rounded-lg bg-emerald-100 text-emerald-600 w-full hover:border hover:border-emerald-600">감정 모아보기</button>
+                </Link>
             </div>
         </div>
     );
