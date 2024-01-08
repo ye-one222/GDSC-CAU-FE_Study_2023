@@ -12,10 +12,10 @@ export default function DiaryDetailPage() {
             <div className="flex flex-col gap-4 my-9">
                 <h1 className="text-4xl font-medium">title</h1>
                 <div className="flex flex-row gap-2">
-                    <button className="flex-grow p-0.5 rounded-lg text-sm bg-gray-100 text-gray-400">date</button>
-                    <button className="flex-grow p-0.5 rounded-lg text-sm bg-gray-100 text-gray-400">weather</button>
+                    <button className="flex-grow p-0.5 rounded-lg text-sm bg-gray-100 text-gray-400 hover:text-gray-600 hover:border hover:border-gray-600">date</button>
+                    <button className="flex-grow p-0.5 rounded-lg text-sm bg-gray-100 text-gray-400 hover:text-gray-600 hover:border hover:border-gray-600">weather</button>
                     <Link to="/emotions" className="flex-grow">
-                        <button className="w-full p-0.5 rounded-lg text-sm bg-gray-100 text-gray-400">feeling</button>
+                        <button className="w-full p-0.5 rounded-lg text-sm bg-gray-100 text-gray-400 hover:text-gray-600 hover:border hover:border-gray-600">feeling</button>
                     </Link>
                 </div>
             </div>
@@ -24,11 +24,11 @@ export default function DiaryDetailPage() {
 
             <div className="w-full flex flex-row gap-2">
                 <Link to="/" className="w-full">
-                    <button className="p-2 rounded-lg bg-emerald-100 text-emerald-600 w-full">
+                    <button className="p-2 rounded-lg bg-emerald-100 text-emerald-600 hover:border hover:border-emerald-600 w-full">
                         새로운 일기 작성하기
                     </button>
                 </Link>
-                <button className="p-2 rounded-lg bg-red-100 text-red-600 w-full">
+                <button className="p-2 rounded-lg bg-red-100 text-red-600 hover:border hover:border-red-600 w-full">
                     현재 일기 삭제하기
                 </button>
             </div>
