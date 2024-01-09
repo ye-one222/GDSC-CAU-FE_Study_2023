@@ -4,9 +4,9 @@ const EmojiLinkButton = ({ toPath, color, emoji, title, description }) => { //íƒ
     return (
         <Link to={toPath}>
             <button 
-                className="p-4 flex rounded-2xl border border-gray-50 hover:scale-110 hover:shadow-2xl transition-transform ease-in-out duration-400"
+                className="group p-4 flex rounded-2xl border border-gray-50 hover:scale-110 hover:shadow-2xl transition-transform ease-in-out duration-400"
             >
-                <div className={`text-6xl py-5 p-2 rounded-2xl border bg-${color}-50 border-${color}-100`} >
+                <div className={`text-6xl py-5 p-2 rounded-2xl border bg-${color}-50 border-${color}-100 group-hover:shadow-inner`} >
                     {emoji}
                 </div>
                 <div className="flex flex-col items-start justify-center w-full m-4">
