@@ -8,13 +8,15 @@ interface EmojiBtnProps{
     description: string
 }
 
-const EmojiLinkButton: React.FC<EmojiBtnProps> = ({ toPath, color, emoji, title, description }) => { //타입 지정 어떻게 하지
+const EmojiLinkButton:React.FC<EmojiBtnProps> = ({ toPath, color, emoji, title, description }) => { //타입 지정 어떻게 하지
     return (
         <Link to={toPath}>
             <button 
                 className="group p-4 flex rounded-2xl border border-gray-50 hover:scale-110 hover:shadow-2xl transition-transform ease-in-out duration-400"
-            >
-                <div className={`text-6xl py-5 p-2 rounded-2xl border bg-${color}-50 border-${color}-100 group-hover:shadow-inner`} >
+            >   
+                {/*이렇게 하면 안되는데 왜 그런건가요...?
+                <div className={`text-6xl py-5 p-2 rounded-2xl border bg-${color}-50 border-${color}-100 group-hover:shadow-inner`} >*/}
+                <div className={`text-6xl py-5 p-2 rounded-2xl border ${color} group-hover:shadow-inner`}>
                     {emoji}
                 </div>
                 <div className="flex flex-col items-start justify-center w-full m-4">
@@ -37,7 +39,7 @@ export default function EmotionLinkPage() {
             <div className="grid grid-cols-2 grid-rows-1 gap-5 items-start justify-center">
                 <EmojiLinkButton
                 toPath="/emotions/awesome"
-                color="yellow"
+                color="bg-yellow-50 border-yellow-100"
                 emoji="😎"
                 title="Awesome"
                 description="최고의 하루였어요"
@@ -45,7 +47,7 @@ export default function EmotionLinkPage() {
 
                 <EmojiLinkButton
                 toPath="/emotions/great"
-                color="blue"
+                color="bg-blue-50 border-blue-100"
                 emoji="😃"
                 title="Great"
                 description="멋진 하루였어요"
@@ -53,7 +55,7 @@ export default function EmotionLinkPage() {
 
                 <EmojiLinkButton
                 toPath="/emotions/good"
-                color="green"
+                color="bg-green-50 border-green-100"
                 emoji="😙"
                 title="Good"
                 description="좋은 하루였어요"
@@ -61,7 +63,7 @@ export default function EmotionLinkPage() {
 
                 <EmojiLinkButton
                 toPath="/emotions/soso"
-                color="purple"
+                color="bg-purple-50 border-purple-100"
                 emoji="😗"
                 title="Soso"
                 description="괜찮은 하루였어요"
@@ -69,7 +71,7 @@ export default function EmotionLinkPage() {
 
                 <EmojiLinkButton
                 toPath="/emotions/bad"
-                color="red"
+                color="bg-red-50 border-red-100"
                 emoji="🤬"
                 title="Bad"
                 description="최악의 하루였어요"

@@ -2,6 +2,17 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+const DIARYKEY = "diary-storage";
+
+interface Diary {
+    id: string;
+    title: string;
+    content: string;
+    date: Date;
+    emotion: string;
+    weather: string;
+}
+
 interface SaverProps{
     valid: boolean, 
     title: string, 
@@ -12,16 +23,6 @@ interface SaverProps{
 
 const DiarySaver: React.FC<SaverProps> = ({valid, title, contents, selectedFeeling, selectedWeather}) => {
     const isValid = valid;
-    const DIARYKEY = "diary-storage";
-
-    interface Diary {
-        id: string;
-        title: string;
-        content: string;
-        date: Date;
-        emotion: string;
-        weather: string;
-    }
 
     function saveDiary() {
         /*
@@ -37,9 +38,10 @@ const DiarySaver: React.FC<SaverProps> = ({valid, title, contents, selectedFeeli
         };
 
         setDiarySet(prev => [...prev, newDiaryObj]);
-        localStorage.setItem("diary-storage", JSON.stringify([...diarySet, newDiaryObj])); // [0] 자리에 계속 덮어씌워짐.. 왜지*/
-
-        const storedData: Diary[] = JSON.parse(localStorage.getItem(DIARYKEY)) || []; //local..()뒤에 ! 붙이면 되나? 막 남발하면 안된다는데
+        aler(diarySet);
+        localStorage.setItem("diary-storage", JSON.stringify([...diarySet, newDiaryObj])); // [0] 자리에 계속 덮어씌워짐.. 왜지 아마 비동기 때문?*/
+        
+        const storedData: Diary[] = JSON.parse(localStorage.getItem(DIARYKEY)!) || []; //local..()뒤에 ! 붙이면 되나? 막 남발하면 안된다는데
         const newDiaryObj = {
             id : window.crypto.randomUUID(),
             title : title,
@@ -63,6 +65,74 @@ const DiarySaver: React.FC<SaverProps> = ({valid, title, contents, selectedFeeli
         </button>
     )
 }
+
+const formatDate = (date: Date): string => {
+    const strDate = date.toString();
+
+    const year = strDate.substring(0,4);
+    const month = strDate.substring(5,7);
+    const day = strDate.substring(8,10);
+    return `${year}. ${month}. ${day}.`;
+};
+
+const DiaryCard = () => {
+    const storedData: Diary[] = JSON.parse(localStorage.getItem(DIARYKEY)!) || [];
+    //const diaryCnt = storedData.length;
+    
+    const emotionToEmoji = ( emotion: string ) => {
+        var emoji;
+        if (emotion === "bad"){
+            emoji = "🤬";
+        } else if (emotion === "soso"){
+            emoji = "😗";
+        } else if (emotion === "good"){
+            emoji = "😙";
+        } else if (emotion === "great"){
+            emoji = "😃";
+        } else {
+            emoji = "😎";
+        }
+        return (
+            <div>{emoji}</div>
+        );
+    }
+
+    const weatherToEmoji = ( weather: string ) => {
+        var emoji;
+        if (weather === "cloud"){
+            emoji = "☁";
+        } else if (weather === "rain"){
+            emoji = "🌧";
+        } else if (weather === "snow"){
+            emoji = "❄";
+        } else {
+            emoji = "☀";
+        }
+        return (
+            <div>{emoji}</div>
+        );
+    }
+
+    return(
+        /*<p className="text-gray-400">일기를 적어보세요</p>*/
+        <div className="flex flex-col overflow-y-auto gap-2 w-full max-h-96">
+            {storedData.map((diary, index) => (
+                <Link to="detail/1" key={diary.id}>
+                <button className="w-full flex flex-col items-start justify-center gap-1.5 p-3 hover:bg-gray-50 border border-gray-100 rounded-lg">
+                    <h1>{diary.title}</h1>
+                    <div className="flex flex-row items-center justify-between gap-1 w-full">
+                        <span className="text-gray-400 text-sm">{formatDate(diary.date)}</span>
+                        <div className="flex flex-row gap-1s">
+                            {emotionToEmoji(diary.emotion)}
+                            {weatherToEmoji(diary.weather)}
+                        </div>
+                    </div>
+                </button>
+                </Link>
+            ))}
+        </div>
+    );
+};
 
 const DiaryWriter = () => {
     const [title, setTitle]=useState('');
@@ -159,25 +229,9 @@ export default function DiaryHomePage() {
             <DiaryWriter />
             
             {/* 첫화면 오른쪽 박스 */}
-            <div className="flex-col gap-4 p-4 rounded-lg bg-white border border-gray-100 h-2/3">
-                <h1 className="text-xl text-emerald-600">기록된 일기</h1>
-                <div className="flex flex-col items-center justify-center h-5/6">
-                    {/*<p className="text-gray-400">일기를 적어보세요</p>*/}
-                    <div className="flex flex-col overflow-y-auto gap-2 w-full max-h-96">
-                        <Link to="detail/1">
-                        <button className="w-full flex flex-col items-start justify-center gap-1.5 p-3 hover:bg-gray-50 border border-gray-100 rounded-lg">
-                            <h1>title</h1>
-                            <div className="flex flex-row items-center justify-between gap-1 w-full">
-                                <span className="text-gray-400 text-sm">2024. 1. 8.</span>
-                                <div className="flex flex-row gap-1s">
-                                    <div>🤬</div>
-                                    <div>☁</div>
-                                </div>
-                            </div>
-                        </button>
-                        </Link>
-                    </div>
-                </div>
+            <div className="flex flex-col gap-4 p-4 rounded-lg bg-white border border-gray-100 h-2/3 min-h-[20rem]">
+                <h1 className="text-xl text-emerald-600 mt-5">기록된 일기</h1>
+                <DiaryCard />
                 <Link to="/emotions">
                     <button type="submit" className="p-2 rounded-lg bg-emerald-100 text-emerald-600 w-full hover:border hover:border-emerald-600">감정 모아보기</button>
                 </Link>

@@ -37,7 +37,7 @@ const Emotion: React.FC<EmotionProps> = ({ feeling }) => {
 
     return (
         <div className="flex flex-row gap-5 items-center justify-center">
-            <div className={`text-6xl py-5 p-2 rounded-2xl border bg-${color}-50 border-${color}-100`} >
+            <div className={`text-6xl py-5 p-2 rounded-2xl border bg-${color}-50 border-${color}-100`} > {/* 이건 또 왜 되는겨 */}
                 {emoji}
             </div>
             <h1 className="text-3xl font-medium">{description}</h1>
@@ -53,7 +53,7 @@ export default function EmotionPage() {
     <div className="flex flex-col gap-10 w-full md:w-2/3 items-start">
             <div className="flex flex-row gap-5 items-center justify-center">
                 <Emotion
-                    feeling={emotion} //undefined이면 어떻게??
+                    feeling={emotion!} //undefined이면 어떻게?? 근데 undefined일수가 없으니까 일단 !붙여
                 />
             </div>
             <div>

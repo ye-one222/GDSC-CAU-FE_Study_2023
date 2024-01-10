@@ -7,6 +7,10 @@ type DiaryDetailPageParams = {
 export default function DiaryDetailPage() {
     const { id } = useParams<DiaryDetailPageParams>()
 
+    function deleteDiary() {
+        
+    }
+
     return (
         <div className="w-2/4 h-full py-20">
             <div className="flex flex-col gap-4 my-9">
@@ -28,7 +32,10 @@ export default function DiaryDetailPage() {
                         새로운 일기 작성하기
                     </button>
                 </Link>
-                <button className="p-2 rounded-lg bg-red-100 text-red-600 hover:border hover:border-red-600 w-full">
+                <button 
+                    className="p-2 rounded-lg bg-red-100 text-red-600 hover:border hover:border-red-600 w-full"
+                    onClick={deleteDiary}
+                >
                     현재 일기 삭제하기
                 </button>
             </div>
