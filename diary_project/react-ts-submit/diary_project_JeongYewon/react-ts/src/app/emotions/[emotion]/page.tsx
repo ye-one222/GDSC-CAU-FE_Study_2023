@@ -53,7 +53,7 @@ export default function EmotionPage() {
     <div className="flex flex-col gap-10 w-full md:w-2/3 items-start">
             <div className="flex flex-row gap-5 items-center justify-center">
                 <Emotion
-                    feeling={emotion} //emotion 타입 지정 해야하는데...
+                    feeling={emotion} //undefined이면 어떻게??
                 />
             </div>
             <div>

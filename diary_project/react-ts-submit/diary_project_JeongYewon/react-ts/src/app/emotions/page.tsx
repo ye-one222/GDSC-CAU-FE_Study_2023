@@ -1,6 +1,14 @@
 import { Link } from "react-router-dom";
 
-const EmojiLinkButton = ({ toPath, color, emoji, title, description }) => { //타입 지정 어떻게 하지
+interface EmojiBtnProps{
+    toPath: string, 
+    color: string, 
+    emoji: string, 
+    title: string, 
+    description: string
+}
+
+const EmojiLinkButton: React.FC<EmojiBtnProps> = ({ toPath, color, emoji, title, description }) => { //타입 지정 어떻게 하지
     return (
         <Link to={toPath}>
             <button 
