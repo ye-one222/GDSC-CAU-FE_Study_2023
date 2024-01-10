@@ -1,17 +1,18 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Diary } from '../interface/diary'
 
 const DIARYKEY = "diary-storage";
 
-interface Diary {
+/*interface Diary {
     id: string;
     title: string;
     content: string;
     date: Date;
     emotion: string;
     weather: string;
-}
+}*/
 
 interface SaverProps{
     valid: boolean, 
@@ -117,7 +118,7 @@ const DiaryCard = () => {
         /*<p className="text-gray-400">일기를 적어보세요</p>*/
         <div className="flex flex-col overflow-y-auto gap-2 w-full max-h-96">
             {storedData.map((diary, index) => (
-                <Link to="detail/1" key={diary.id}>
+                <Link to={`detail/${diary.id}`} key={diary.id}>
                 <button className="w-full flex flex-col items-start justify-center gap-1.5 p-3 hover:bg-gray-50 border border-gray-100 rounded-lg">
                     <h1>{diary.title}</h1>
                     <div className="flex flex-row items-center justify-between gap-1 w-full">

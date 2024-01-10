@@ -11,7 +11,7 @@ const diaryRouter = createBrowserRouter([
         element: <DiaryHomePage />,
     },
     {
-        path: '/detail/1', //일단 임시로
+        path: '/detail/:id', //일단 임시로
         element: <DiaryDetailPage />,
     },
     {
