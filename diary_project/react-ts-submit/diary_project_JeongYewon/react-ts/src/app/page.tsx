@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Diary } from '../interface/diary'
 
-const DIARYKEY = "diary-storage";
+export const DIARYKEY = "diary-storage";
 
 /*interface Diary {
     id: string;

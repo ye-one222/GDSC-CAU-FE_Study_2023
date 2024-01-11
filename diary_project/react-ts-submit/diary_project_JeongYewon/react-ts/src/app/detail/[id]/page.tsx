@@ -1,11 +1,10 @@
 import { Link, useParams } from 'react-router-dom'
 import { Diary } from '../../../interface/diary'
+import { DIARYKEY } from '../../../app/page'
 
 type DiaryDetailPageParams = {
     id: string
 }
-
-const DIARYKEY = "diary-storage";
 
 const formatDate = (date: Date): string => {
     const strDate = date.toString();
