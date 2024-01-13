@@ -1,4 +1,7 @@
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
+import { DIARYKEY, formatDate  } from '../../../app/page'
+import { Diary } from '../../../interface/diary'
+import { useEffect, useState } from 'react'
 
 type EmotionPageParams = {
     emotion: string
@@ -45,20 +48,68 @@ const Emotion: React.FC<EmotionProps> = ({ feeling }) => {
     );
 }
 
-
 export default function EmotionPage() {
     const { emotion } = useParams<EmotionPageParams>()
-    return (
+    const storedData: Diary[] = JSON.parse(localStorage.getItem(DIARYKEY)!) || [];
+    const resultData: Diary[] = storedData.filter(user => user.emotion === emotion);
+    const [selectedIDs, setSelectedIDs] = useState<string[]>([]);
+    const [isValid, setValid] = useState(false);
+    const isResultDataExists = resultData.length > 0;
     
-    <div className="flex flex-col gap-10 w-full md:w-2/3 items-start">
+    function deleteDiaries() {
+        const updatedData = storedData.filter(diary => !selectedIDs.includes(diary.id));
+        localStorage.setItem(DIARYKEY, JSON.stringify(updatedData));
+
+        window.location.reload(); //일단 새로고침되도록 했는데, 다른 방법 찾아보기
+    }
+
+    useEffect(() => {
+        setValid(selectedIDs.length > 0);
+      }, [selectedIDs]);
+
+    return (    
+        <div className="flex flex-col gap-10 w-full md:w-2/3 items-start">
             <div className="flex flex-row gap-5 items-center justify-center">
                 <Emotion
                     feeling={emotion!} //undefined이면 어떻게?? 근데 undefined일수가 없으니까 일단 !붙여
                 />
             </div>
-            <div>
-                이제 해야한당..
-            </div>
-    </div>
+
+            {resultData.map((diary, index) => (
+                <div className="flex flex-row items-center justify-between gap-4 w-full border border-gray-100 rounded-lg p-2">
+                    <input
+                        type="checkbox"
+                        className="w-4 h-4 accent-gray-50"
+                        onChange={({target: {checked}})=> {
+                            if(checked){
+                                setSelectedIDs((prevSelectedIDs) => [...prevSelectedIDs, diary.id]);
+                            }else{
+                                setSelectedIDs((prevSelectedIDs) =>
+                                    prevSelectedIDs.filter((id) => id !== diary.id)
+                                );
+                            }
+                        }}
+                    />
+                    <Link to={`/detail/${diary.id}`} key={diary.id} className="flex flex-row items-center justify-between gap-4 w-full rounded-lg hover:bg-gray-100">
+                        <div>{diary.title}</div>
+                        <div className="flex flex-row gap-2 justify-center items-center">
+                            <span className="text-gray-400">{formatDate(diary.date)}</span>
+                            <span className="text-gray-400">조회수: {diary.views}</span>
+                        </div>
+                    </Link>
+                </div>
+            ))}
+            {isResultDataExists ? 
+                <button 
+                    className={`p-2 rounded-lg border border-transparent ${isValid ? 'bg-red-100 text-red-600 hover:border-red-600 w-full' : 'bg-gray-100 text-gray-600 hover:border-gray-600 w-full'}`}
+                    onClick={deleteDiaries}
+                    disabled={!isValid}
+                >
+                    {isValid ? `선택된 ${selectedIDs.length}개의 일기를 삭제합니다` : '선택된 일기가 없습니다'}
+                </button>
+            : 
+                <div className="text-gray-400">아직 적지 않았어요</div>
+            }
+        </div>
     )
 }

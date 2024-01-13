@@ -55,6 +55,7 @@ export default function DiaryDetailPage() {
             </Link>
         )
     }
+
     function deleteDiary() {
         localStorage.setItem(DIARYKEY,JSON.stringify(storedData.filter(user => user.id !== id)));
     }
@@ -74,13 +75,13 @@ export default function DiaryDetailPage() {
 
             <div className="w-full flex flex-row gap-2">
                 <Link to="/" className="w-full">
-                    <button className="p-2 rounded-lg bg-emerald-100 text-emerald-600 hover:border hover:border-emerald-600 w-full">
+                    <button className="p-2 rounded-lg border border-transparent bg-emerald-100 text-emerald-600 hover:border-emerald-600 w-full">
                         새로운 일기 작성하기
                     </button>
                 </Link>
                 <Link to="/" className="w-full">
                     <button 
-                        className="p-2 rounded-lg bg-red-100 text-red-600 hover:border hover:border-red-600 w-full"
+                        className="p-2 rounded-lg border border-transparent bg-red-100 text-red-600 hover:border-red-600 w-full"
                         onClick={deleteDiary}
                     >
                         현재 일기 삭제하기

@@ -50,6 +50,7 @@ const DiarySaver: React.FC<SaverProps> = ({valid, title, contents, selectedFeeli
             date : new Date(),
             emotion : selectedFeeling!,
             weather : selectedWeather!,
+            views : 1
         };
         
         localStorage.setItem(DIARYKEY, JSON.stringify([...storedData, newDiaryObj]));
@@ -58,7 +59,7 @@ const DiarySaver: React.FC<SaverProps> = ({valid, title, contents, selectedFeeli
     return (
         <button 
             type="submit"
-            className={`p-2 rounded-lg w-full ${isValid ? 'bg-emerald-100 text-emerald-600 hover:border hover:border-emerald-600' : 'bg-gray-100 text-gray-400 hover:text-gray-600 hover:border hover:border-gray-600'}`}
+            className={`p-2 rounded-lg w-full border border-transparent ${isValid ? 'bg-emerald-100 text-emerald-600 hover:border-emerald-600' : 'bg-gray-100 text-gray-400 hover:text-gray-600 hover:border-gray-600'}`}
             disabled={!isValid}
             onClick={saveDiary}
         >
@@ -67,7 +68,7 @@ const DiarySaver: React.FC<SaverProps> = ({valid, title, contents, selectedFeeli
     )
 }
 
-const formatDate = (date: Date): string => {
+export const formatDate = (date: Date): string => {
     const strDate = date.toString();
 
     const year = strDate.substring(0,4);
@@ -78,7 +79,6 @@ const formatDate = (date: Date): string => {
 
 const DiaryCard = () => {
     const storedData: Diary[] = JSON.parse(localStorage.getItem(DIARYKEY)!) || [];
-    //const diaryCnt = storedData.length;
     
     const emotionToEmoji = ( emotion: string ) => {
         var emoji;
@@ -115,8 +115,10 @@ const DiaryCard = () => {
     }
 
     return(
-        /*<p className="text-gray-400">일기를 적어보세요</p>*/
-        <div className="flex flex-col overflow-y-auto gap-2 w-full max-h-96">
+        <div className="flex flex-col overflow-y-auto gap-2 w-full h-96 max-h-96">
+            {storedData.length===0 && (
+                <p className="flex items-center text-gray-400">일기를 적어보세요</p>
+            )}
             {storedData.map((diary, index) => (
                 <Link to={`detail/${diary.id}`} key={diary.id}>
                 <button className="w-full flex flex-col items-start justify-center gap-1.5 p-3 hover:bg-gray-50 border border-gray-100 rounded-lg">
@@ -234,7 +236,7 @@ export default function DiaryHomePage() {
                 <h1 className="text-xl text-emerald-600 mt-5">기록된 일기</h1>
                 <DiaryCard />
                 <Link to="/emotions">
-                    <button type="submit" className="p-2 rounded-lg bg-emerald-100 text-emerald-600 w-full hover:border hover:border-emerald-600">감정 모아보기</button>
+                    <button type="submit" className="p-2 rounded-lg bg-emerald-100 text-emerald-600 w-full border border-transparent hover:border-emerald-600">감정 모아보기</button>
                 </Link>
             </div>
         </div>
